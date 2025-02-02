@@ -46,7 +46,9 @@ fun main() {
                 title = "Московские мастера 2025",
                 onCloseRequest = ::exitApplication,
                 content = {
-                    App()
+//                    App()
+//                    HW3()
+                    HotelBookingScreen()
                 }
             )
         }
