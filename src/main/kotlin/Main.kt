@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import state.Counter
 import kotlin.random.Random
 
 @Composable
@@ -48,7 +49,8 @@ fun main() {
                 content = {
 //                    App()
 //                    HW3()
-                    HotelBookingScreen()
+//                    HotelBookingScreen()
+                    Counter()
                 }
             )
         }
