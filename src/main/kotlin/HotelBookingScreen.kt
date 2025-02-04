@@ -1,8 +1,14 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -12,6 +18,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -19,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -41,8 +49,13 @@ data class Offer(
 
 val offers = listOf(
     Offer(iconPath = "drawable/bed.xml", label = "Bed"),
-    Offer(iconPath = "drawable/bed.xml", label = "Bed"),
-    Offer(iconPath = "drawable/bed.xml", label = "Bed"),
+    Offer(iconPath = "drawable/breakfast.xml", label = "Breakfast"),
+    Offer(iconPath = "drawable/cutlery.xml", label = "Cutlery"),
+    Offer(iconPath = "drawable/pawprint.xml", label = "Friendly"),
+    Offer(iconPath = "drawable/serving_dish.xml", label = "Dinner"),
+    Offer(iconPath = "drawable/snowflake.xml", label = "Air Conditioning"),
+    Offer(iconPath = "drawable/television.xml", label = "TV"),
+    Offer(iconPath = "drawable/wi_fi_icon.xml", label = "Wifi"),
 )
 
 //val offers = mapOf(
@@ -56,6 +69,7 @@ val offers = listOf(
 //    "drawable/wi_fi_icon.xml" to "Wifi"
 //)
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HotelBookingScreen(modifier: Modifier = Modifier) {
     LazyColumn(
@@ -90,11 +104,116 @@ fun HotelBookingScreen(modifier: Modifier = Modifier) {
                 color = Color.Gray
             )
         }
-        item{
-            tags.forEach { tag ->
-                Chip()
+        item {
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                tags.forEach { tag ->
+                    Chip(
+                        text = tag
+                    )
+                }
             }
         }
+        item {
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                color = Color.Gray
+            )
+        }
+        item {
+            Text(
+                text = "he advertisement features a vibrant and inviting design, showcasing the Hotel California Strawberry nestled in the heart of Los Angeles. Surrounded by the iconic Hollywood Sign, Griffith Park and stunning beaches, the hotel is perfectly located for guests to explore L.A.'s best attractions.",
+                fontSize = 13.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                textAlign = TextAlign.Justify
+            )
+        }
+        item {
+            Text(
+                text = "What we offer",
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        item {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+            ) {
+                items(offers) { offer ->
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .background(Color.Gray.copy(alpha = 0.3f))
+                            .padding(8.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(offer.iconPath),
+                            contentDescription = null,
+                            modifier = Modifier.size(36.dp)
+                        )
+                        Text(
+                            text = offer.label,
+                            fontSize = 13.sp
+                        )
+                    }
+                }
+            }
+        }
+        item {
+            Button(
+                onClick = {},
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .widthIn(
+                        max = 400.dp
+                    )
+                    .fillMaxWidth()
+            ) {
+                Text(text = "Book Now!")
+            }
+        }
+    }
+}
+
+@Composable
+fun Chip(
+    text: String
+) {
+    Box(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clip(RoundedCornerShape(10.dp))
+//            .clickable {
+//
+//            }
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(horizontal = 15.dp, vertical = 10.dp)
+        )
     }
 }
 
