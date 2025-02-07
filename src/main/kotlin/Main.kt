@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import state.Counter
+import state.*
 import kotlin.random.Random
 
 @Composable
@@ -50,7 +50,16 @@ fun main() {
 //                    App()
 //                    HW3()
 //                    HotelBookingScreen()
-                    Counter()
+//                    Counter()
+//                    StateHW(
+//                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero lacus, consectetur sed quam viverra, semper ornare risus. Donec ultrices, quam vitae pharetra varius, nunc diam ullamcorper risus, in euismod diam arcu et augue. Nunc quis justo erat. Sed neque mi, viverra sed libero eget, cursus rhoncus massa.",
+//                        date = "Mar.5 , 10:00"
+//                    )
+//                    StateHWRedesign(
+//                        content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero lacus, consectetur sed quam viverra, semper ornare risus. Donec ultrices, quam vitae pharetra varius, nunc diam ullamcorper risus, in euismod diam arcu et augue. Nunc quis justo erat. Sed neque mi, viverra sed libero eget, cursus rhoncus massa."
+//                    )
+//                    CheckerDemo()
+                    StateHoisting()
                 }
             )
         }
