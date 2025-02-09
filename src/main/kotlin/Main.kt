@@ -59,7 +59,8 @@ fun main() {
 //                        content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero lacus, consectetur sed quam viverra, semper ornare risus. Donec ultrices, quam vitae pharetra varius, nunc diam ullamcorper risus, in euismod diam arcu et augue. Nunc quis justo erat. Sed neque mi, viverra sed libero eget, cursus rhoncus massa."
 //                    )
 //                    CheckerDemo()
-                    StateHoisting()
+//                    StateHoisting()
+                    RandomizerQuizScreen()
                 }
             )
         }

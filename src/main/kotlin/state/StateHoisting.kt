@@ -12,7 +12,6 @@ import kotlin.random.Random
 @Composable
 fun StateHoisting(){
     val countState: MutableState<Int> = remember { mutableStateOf(0) }
-    val randomNumber = Random.nextInt(1, 100)
     Column {
         Counter(
             count = countState.value,
