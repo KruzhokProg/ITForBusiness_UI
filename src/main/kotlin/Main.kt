@@ -1,3 +1,4 @@
+import Navigation.NavigationExample
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -60,7 +61,8 @@ fun main() {
 //                    )
 //                    CheckerDemo()
 //                    StateHoisting()
-                    RandomizerQuizScreen()
+//                    RandomizerQuizScreen()
+                    NavigationExample()
                 }
             )
         }
