@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import kval_otbor.CustomTextField
+import kval_otbor.DatePicker
+import kval_otbor.Screen
 import state.*
 import kotlin.random.Random
 
@@ -62,7 +65,10 @@ fun main() {
 //                    CheckerDemo()
 //                    StateHoisting()
 //                    RandomizerQuizScreen()
-                    NavigationExample()
+//                    NavigationExample()
+//                    Screen()
+//                    CustomTextField()
+                    DatePicker()
                 }
             )
         }
