@@ -27,10 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import kval_otbor.CustomTextField
-import kval_otbor.DatePicker
-import kval_otbor.KvakOtborHW
-import kval_otbor.Screen
+import kval_otbor.*
 import state.*
 import kotlin.random.Random
 
@@ -69,8 +66,9 @@ fun main() {
 //                    NavigationExample()
 //                    Screen()
 //                    CustomTextField()
-//                    DatePicker()
-                    KvakOtborHW()
+//                    CustomDatePicker()
+                    DropDownMenu()
+//                    KvakOtborHW()
                 }
             )
         }

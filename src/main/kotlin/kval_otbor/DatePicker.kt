@@ -1,32 +1,38 @@
 package kval_otbor
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
-fun DatePicker(
-    imageVector: ImageVector
-) {
+fun CustomDatePicker() {
 
-    val date = remember { mutableStateOf("") }
+    val showDialog = remember { mutableStateOf(false) }
+    val selectedDate = remember { mutableStateOf<Long?>(null) }
 
     BasicTextField(
-        value = date.value,
+        value = if (selectedDate.value != null) {
+            convertMillisToDate(selectedDate.value!!)
+        } else {
+            "дд.мм.гггг"
+        },
         onValueChange = { },
         decorationBox = { innerBox ->
             Row(
@@ -34,24 +40,67 @@ fun DatePicker(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth().border(1.dp, Color.Black),
             ) {
-                if (date.value.isEmpty()) {
-                    Text(
-                        modifier = Modifier.padding(5.dp),
-                        text = "дд.мм.гггг"
-                    )
-                } else {
-                    innerBox()
-                }
+                innerBox()
                 IconButton(
                     modifier = Modifier.padding(5.dp).size(24.dp),
-                    onClick = {}
+                    onClick = {
+                        showDialog.value = true
+                    }
                 ) {
                     Icon(
-                        imageVector = imageVector,
+                        imageVector = Icons.Default.DateRange,
                         contentDescription = null
                     )
                 }
             }
         }
     )
+    if (showDialog.value) {
+        DatePickerModal(
+            onDateSelected = { millis ->
+                selectedDate.value = millis
+            },
+            onDismiss = {
+                showDialog.value = false
+            }
+        )
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePickerModal(
+    onDateSelected: (Long?) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val datePickerState = rememberDatePickerState()
+
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            Button(
+                onClick = {
+                    onDateSelected(datePickerState.selectedDateMillis)
+                    onDismiss()
+                }
+            ) {
+                Text("OK")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = onDismiss
+            ) {
+                Text("Cancel")
+            }
+        }
+    ) {
+        DatePicker(state = datePickerState)
+    }
+}
+
+fun convertMillisToDate(millis: Long): String {
+    val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    return formatter.format(Date(millis))
 }
