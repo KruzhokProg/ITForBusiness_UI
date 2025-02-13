@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import kval_otbor.db.DatabaseUtils
 import kval_otbor.drop_down_menu.presentation.DropDownMenu
 
 @Composable
@@ -57,8 +58,10 @@ fun main() {
 //                    Screen()
 //                    CustomTextField()
 //                    CustomDatePicker()
-                    DropDownMenu()
+//                    DropDownMenu()
 //                    KvakOtborHW()
+                    DatabaseUtils.connect()
+                    DatabaseUtils.createTables()
                 }
             )
         }
