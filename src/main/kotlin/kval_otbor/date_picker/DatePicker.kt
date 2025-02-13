@@ -9,27 +9,25 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
 fun CustomDatePicker() {
-
-    val showDialog = remember { mutableStateOf(false) }
-    val selectedDate = remember { mutableStateOf<Long?>(null) }
+    val viewModel = viewModel<DatePickerViewModel>()
+    val state = viewModel.state
 
     BasicTextField(
-        value = if (selectedDate.value != null) {
-            convertMillisToDate(selectedDate.value!!)
+        value = if (state.selectedDate != null) {
+            convertMillisToDate(state.selectedDate!!)
         } else {
             "дд.мм.гггг"
         },
@@ -44,7 +42,7 @@ fun CustomDatePicker() {
                 IconButton(
                     modifier = Modifier.padding(5.dp).size(24.dp),
                     onClick = {
-                        showDialog.value = true
+                        viewModel.OnAction(DatePickerAction.ShowDialog)
                     }
                 ) {
                     Icon(
@@ -55,13 +53,14 @@ fun CustomDatePicker() {
             }
         }
     )
-    if (showDialog.value) {
+    if (state.showDialog) {
         DatePickerModal(
+            state = state,
             onDateSelected = { millis ->
-                selectedDate.value = millis
+                selected.value = millis
             },
             onDismiss = {
-                showDialog.value = false
+                viewModel.OnAction(DatePickerAction.ShowDialogfalse)
             }
         )
     }
@@ -71,17 +70,16 @@ fun CustomDatePicker() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerModal(
+    state: DatePickerStateNotKt,
     onDateSelected: (Long?) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val datePickerState = rememberDatePickerState()
-
     DatePickerDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             Button(
                 onClick = {
-                    onDateSelected(datePickerState.selectedDateMillis)
+                    onDateSelected(state.datePickerState?.selectedDateMillis)
                     onDismiss()
                 }
             ) {
@@ -96,11 +94,6 @@ fun DatePickerModal(
             }
         }
     ) {
-        DatePicker(state = datePickerState)
+        state.datePickerState?.let { DatePicker(state = it) }
     }
-}
-
-fun convertMillisToDate(millis: Long): String {
-    val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    return formatter.format(Date(millis))
 }
