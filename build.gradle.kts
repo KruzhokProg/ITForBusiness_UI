@@ -26,7 +26,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:0.57.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.57.0")
     implementation("org.postgresql:postgresql:42.7.2")
-    implementation("org.jetbrains.exposed:exposed-java-time:0.30.1")
+//    implementation("org.jetbrains.exposed:exposed-java-time:0.30.1")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.57.0")
+//    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
     implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
 }
 

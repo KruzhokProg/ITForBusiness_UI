@@ -2,9 +2,8 @@ package kval_otbor.db
 
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.`java-time`.CurrentDateTime
-import org.jetbrains.exposed.sql.`java-time`.datetime
-import java.time.LocalDateTime
+import org.jetbrains.exposed.sql.kotlin.datetime.datetime
+import kotlinx.datetime.LocalDateTime
 
 object Department: Table() {
     val departmentId: Column<Int> = integer("department_id")
@@ -38,7 +37,7 @@ object Training: Table() {
     val title: Column<String> = varchar("title", 255)
     val startDate: Column<LocalDateTime> = datetime("start_date")
     val endDate: Column<LocalDateTime> = datetime("end_date")
-    val employee_id: Column<Int> = integer("employee_id") references Employee.employeeId
+    val employeeId: Column<Int> = integer("employee_id") references Employee.employeeId
 }
 
 object Calendar: Table() {
@@ -48,8 +47,8 @@ object Calendar: Table() {
 }
 
 object Absence: Table() {
-    val absence_id: Column<Int> = integer("absence_id")
-    override val primaryKey = PrimaryKey(absence_id)
+    val absenceId: Column<Int> = integer("absence_id")
+    override val primaryKey = PrimaryKey(absenceId)
     val type: Column<String> = varchar("type", 255)
     val startDate: Column<LocalDateTime> = datetime("start_date") references Calendar.date
     val endDate: Column<LocalDateTime> = datetime("end_date") references Calendar.date
