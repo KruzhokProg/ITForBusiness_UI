@@ -1,4 +1,4 @@
-package kval_otbor
+package kval_otbor.drop_down_menu.presentation
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -9,15 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDownMenu(
-    items: List<String> = listOf("Программист", "Аналитик", "Тестировщик", "Дизайнер")
-) {
-    val list = remember { items }
-    var isExpanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(list[0]) }
+fun DropDownMenu() {
+    val viewModel = viewModel<DropDownMenuViewModel>()
+    val state = viewModel.state
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,12 +25,12 @@ fun DropDownMenu(
     ) {
         ExposedDropdownMenuBox(
             modifier = Modifier,
-            expanded = isExpanded,
-            onExpandedChange = { isExpanded = !isExpanded }
+            expanded = state.isExpanded,
+            onExpandedChange = { viewModel.onAction(DropDownAction.SwapExpanded) }
         ) {
             BasicTextField(
                 modifier = Modifier.menuAnchor(),
-                value = selectedText,
+                value = state.selectedText,
                 onValueChange = {},
                 readOnly = true,
                 decorationBox = {
@@ -42,19 +41,19 @@ fun DropDownMenu(
                     ) {
                         Text(
                             modifier = Modifier.weight(1f).padding(horizontal = 5.dp),
-                            text = selectedText
+                            text = state.selectedText
                         )
-                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = state.isExpanded)
                     }
                 }
             )
-            ExposedDropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
-                list.forEach { text ->
+            ExposedDropdownMenu(expanded = state.isExpanded, onDismissRequest = { viewModel.onAction(DropDownAction.ResetExpanded) }) {
+                state.items.forEach { text ->
                     DropdownMenuItem(
                         text = { Text(text = text) },
                         onClick = {
-                            selectedText = text
-                            isExpanded = false
+                            viewModel.onAction(DropDownAction.SetSelectedText(text))
+                            viewModel.onAction(DropDownAction.ResetExpanded)
                         },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
                     )

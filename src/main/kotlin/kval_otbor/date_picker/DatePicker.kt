@@ -1,4 +1,4 @@
-package kval_otbor
+package kval_otbor.date_picker
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
