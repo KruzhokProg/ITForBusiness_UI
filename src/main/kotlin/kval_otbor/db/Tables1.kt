@@ -19,7 +19,7 @@ object Position: Table() {
 }
 
 object Employee : Table() {
-    val employeeId: Column<Int> = integer("employee_id")
+    val employeeId: Column<Int> = integer("employee_id").autoIncrement()
     override val primaryKey = PrimaryKey(employeeId)
     val fullName: Column<String> = varchar("full_name", 255)
     val email: Column<String> = varchar("email", 255)

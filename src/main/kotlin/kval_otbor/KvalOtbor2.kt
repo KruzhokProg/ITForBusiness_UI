@@ -22,6 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.LocalDateTime
+import kval_otbor.db.DatabaseUtils
+import kval_otbor.db.Employee
+import kval_otbor.drop_down_menu.DropDownMenu
 
 @Composable
 fun Screen(navController: NavController) {
@@ -170,6 +174,18 @@ fun Screen2(navController: NavController) {
             val icons = listOf(Icons.Default.DateRange, Icons.Default.ArrowDropDown, Icons.Default.ArrowDropDown, Icons.Default.ArrowDropDown)
             val save = listOf("Сохранить", "Отменить")
 
+            DropDownMenu(
+                items = DatabaseUtils.getAllPositions()
+            )
+            Spacer(modifier = Modifier.height(100.dp))
+            DropDownMenu(
+                items = DatabaseUtils.getAllPositionsForDepartment()
+            )
+            Spacer(modifier = Modifier.height(100.dp))
+            DropDownMenu(
+                items = DatabaseUtils.getAllPositionsForDepartment()
+            )
+
             for (i in 0..listOfTexts.size - 1) {
                 Text(text = listOfTexts[i])
                 Spacer(modifier = Modifier.height(6.dp))
@@ -194,7 +210,16 @@ fun Screen2(navController: NavController) {
                     Box(modifier = Modifier.background(color = Color.Red)) {
                         Button(
                             onClick = {
-                                navController.navigate(Navigation.Screen.MAIN)
+//                                navController.navigate(Navigation.Screen.MAIN)
+                                      // Сохранение в бд
+//                                val newEmployee = Employee(
+//                                    fullName = fullName.value,
+//                                    email = email.value,
+//                                    phone = phone.value,
+//                                    birthday = LocalDateTime.parse("22.02.2020"),
+//                                    positionId = 1
+//                                )
+//                                DatabaseUtils.saveEmployee(newEmployee)
                             },
                             modifier = Modifier.height(30.dp),
                             colors = ButtonDefaults.buttonColors(
