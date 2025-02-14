@@ -22,7 +22,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
-fun CustomDatePicker() {
+fun CustomDatePicker(
+    onDateSelectedInMillis: (Long) -> Unit
+) {
 
     val showDialog = remember { mutableStateOf(false) }
     val selectedDate = remember { mutableStateOf<Long?>(null) }
@@ -59,6 +61,7 @@ fun CustomDatePicker() {
         DatePickerModal(
             onDateSelected = { millis ->
                 selectedDate.value = millis
+                millis?.let{ onDateSelectedInMillis(it) }
             },
             onDismiss = {
                 showDialog.value = false

@@ -9,11 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kval_otbor.db.DatabaseUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownMenu(
-    items: List<String> = listOf("Программист", "Аналитик", "Тестировщик", "Дизайнер")
+    items: List<String> = emptyList(),
+    onSelectedText: (String) -> Unit
 ) {
     val list = remember { items }
     var isExpanded by remember { mutableStateOf(false) }
@@ -54,6 +56,8 @@ fun DropDownMenu(
                         text = { Text(text = text) },
                         onClick = {
                             selectedText = text
+
+                            onSelectedText(selectedText)
                             isExpanded = false
                         },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding

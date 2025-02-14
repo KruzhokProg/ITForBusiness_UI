@@ -27,8 +27,8 @@ object Employee : Table() {
     val birthday: Column<LocalDateTime> = datetime("birthday")
     val positionId: Column<Int> = integer("position_id") references Position.positionId
     val departmentId: Column<Int> = integer("department_id") references Department.departmentId
-    val managerId: Column<Int> = integer("manager_id") references employeeId
-    val dismissalDate: Column<LocalDateTime> = datetime("dismissal_date")
+    val managerId: Column<Int?> = (integer("manager_id") references employeeId).nullable()
+    val dismissalDate: Column<LocalDateTime?> = datetime("dismissal_date").nullable()
 }
 
 object Training: Table() {
